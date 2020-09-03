@@ -17,8 +17,15 @@ import {
   TotalConnectionsText,
   TotalConnectionsIcon,
 } from './styles';
+import {useNavigation} from '@react-navigation/native';
 
 const Landing: React.FC = () => {
+  const {navigate} = useNavigation();
+
+  const handleNavigateToTeacherList = () => {
+    navigate('TeacherList');
+  };
+
   return (
     <Container>
       <MainBanner source={landingImg} />
@@ -27,7 +34,7 @@ const Landing: React.FC = () => {
       <TitleBold>O que deseja fazer?</TitleBold>
 
       <ButtonsContainer>
-        <Button name="study">
+        <Button name="study" onPress={handleNavigateToTeacherList}>
           <ButtonImage source={studyIcon} />
           <ButtonText>Estudar</ButtonText>
         </Button>
