@@ -22,8 +22,8 @@ import {useNavigation} from '@react-navigation/native';
 const Landing: React.FC = () => {
   const {navigate} = useNavigation();
 
-  const handleNavigateToTeacherList = () => {
-    navigate('TeacherList');
+  const handleNavigateStudyPage = () => {
+    navigate('Study');
   };
 
   return (
@@ -34,7 +34,7 @@ const Landing: React.FC = () => {
       <TitleBold>O que deseja fazer?</TitleBold>
 
       <ButtonsContainer>
-        <Button name="study" onPress={handleNavigateToTeacherList}>
+        <Button name="study" onPress={handleNavigateStudyPage}>
           <ButtonImage source={studyIcon} />
           <ButtonText>Estudar</ButtonText>
         </Button>
