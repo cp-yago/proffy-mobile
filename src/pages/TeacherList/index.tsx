@@ -12,8 +12,6 @@ const TeacherList: React.FC = () => {
 
       <TeacherListContainer>
         <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
       </TeacherListContainer>
     </Container>
   );
