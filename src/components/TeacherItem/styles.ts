@@ -1,10 +1,15 @@
 import styled from 'styled-components/native';
 import {RectButton} from 'react-native-gesture-handler';
 
+interface FavoriteButtonProps {
+  favorited: boolean;
+}
+
 export const Container = styled.View`
   background-color: #fff;
   border: 1px solid #e6e6f0;
   border-radius: 8px;
+  margin: 10px;
   margin-bottom: 16px;
   overflow: hidden;
 `;
@@ -74,14 +79,15 @@ export const ButtonsContainer = styled.View`
   margin: 16px;
 `;
 
-export const FavoriteButton = styled(RectButton)`
-  background-color: #8257e5;
+export const FavoriteButton = styled(RectButton)<FavoriteButtonProps>`
   width: 56px;
   height: 56px;
   border-radius: 8px;
   justify-content: center;
   align-items: center;
   margin-right: 8px;
+
+  background-color: ${(props) => (props.favorited ? '#e33d3d' : '#8257e5')};
 `;
 
 export const FavoriteIcon = styled.Image``;

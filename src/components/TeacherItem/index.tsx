@@ -53,7 +53,7 @@ const TeacherItem: React.FC = () => {
       </ProfileContainerFooter>
 
       <ButtonsContainer>
-        <FavoriteButton>
+        <FavoriteButton favorited={false}>
           <FavoriteIcon source={heartOutlineIcon} />
         </FavoriteButton>
 
