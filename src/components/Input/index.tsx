@@ -1,16 +1,14 @@
+import {Container, Icon, InputContainer, TextInput} from './styles';
 import React, {
-  useRef,
-  useState,
+  forwardRef,
   useCallback,
   useEffect,
   useImperativeHandle,
-  forwardRef,
+  useRef,
+  useState,
 } from 'react';
 
-import {Container, Icon, TextInput, InputContainer} from './styles';
-
 import {TextInputProps} from 'react-native';
-
 import {useField} from '@unform/core';
 
 interface InputProps extends TextInputProps {
@@ -41,7 +39,8 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
 
   const handleInputFocus = useCallback(() => {
     setIsFocused(true);
-  }, []);
+    console.log(isFocused, 'focou');
+  }, [isFocused]);
 
   const handleInputBlur = useCallback(() => {
     setIsFocused(false);
@@ -73,26 +72,24 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
 
   return (
     <Container style={containerStyle} isFocused={isFocused} isErrored={!!error}>
-      <InputContainer>
-        <Icon
-          name={icon}
-          size={20}
-          color={isFocused || isFilled ? '#ff9000' : '#666360'}
-        />
+      <Icon
+        name={icon}
+        size={20}
+        color={isFocused || isFilled ? '#8257E5' : '#666360'}
+      />
 
-        <TextInput
-          ref={inputElementRef}
-          keyboardAppearance="dark"
-          placeholderTextColor="#666360"
-          defaultValue={defaultValue}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-          onChangeText={(value) => {
-            inputValueRef.current.value = value;
-          }}
-          {...rest}
-        />
-      </InputContainer>
+      <TextInput
+        ref={inputElementRef}
+        keyboardAppearance="dark"
+        placeholderTextColor="#666360"
+        defaultValue={defaultValue}
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
+        onChangeText={(value) => {
+          inputValueRef.current.value = value;
+        }}
+        {...rest}
+      />
     </Container>
   );
 };

@@ -37,7 +37,6 @@ export const Description = styled.Text`
 
 export const FormLoginContainer = styled.View`
   flex: 1;
-  /* align-items: center; */
   justify-content: center;
   margin-left: 40px;
   margin-right: 40px;
@@ -45,22 +44,27 @@ export const FormLoginContainer = styled.View`
 
 export const TitleContainer = styled.View`
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   margin-top: -40px;
+  padding: 20px 0;
 `;
 
 export const Title = styled.Text`
-  font-family: 'Archivo_700Bold';
+  font-family: 'Poppins_400Regular';
   font-size: 24px;
   color: #32264d;
-  margin: 30px;
 `;
 
-export const LinkSignUp = styled.Text`
+export const SignUp = styled.TouchableOpacity``;
+
+export const SignUpText = styled.Text`
   font-family: 'Poppins_400Regular';
   color: #8257e5;
   margin: 30px;
+
+  margin: 0;
+  padding: 0;
 `;
 
 export const CheckBoxContainer = styled.View`
@@ -73,7 +77,11 @@ export const CheckBoxText = styled.Text`
   color: #9c98a6;
 `;
 
-export const ForgotPasswordLink = styled.Text`
+export const ForgotPassword = styled.TouchableOpacity`
+  margin-left: auto;
+`;
+
+export const ForgotPasswordText = styled.Text`
   margin-left: auto;
   color: #9c98a6;
 `;
