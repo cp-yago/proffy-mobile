@@ -1,4 +1,4 @@
-import {Container, Icon, InputContainer, TextInput} from './styles';
+import {Container, Icon, TextInput} from './styles';
 import React, {
   forwardRef,
   useCallback,

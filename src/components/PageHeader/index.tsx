@@ -1,17 +1,16 @@
+import {
+  GoBackButton,
+  GoBackButtonIcon,
+  Header,
+  HeaderTitle,
+  Logo,
+  PageHeaderContainer,
+  TopBar,
+} from './styles';
 import React, {ReactNode} from 'react';
 
 import backIcon from '../../assets/images/icons/back.png';
 import logoImg from '../../assets/images/logo.png';
-
-import {
-  PageHeaderContainer,
-  TopBar,
-  GoBackButton,
-  GoBackButtonIcon,
-  Logo,
-  Header,
-  HeaderTitle,
-} from './styles';
 import {useNavigation} from '@react-navigation/native';
 
 interface PageHeaderProps {
@@ -24,10 +23,10 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   headerRight,
   children,
 }) => {
-  const {navigate} = useNavigation();
+  const {goBack} = useNavigation();
 
   function handleGoBackButton() {
-    navigate('Landing');
+    goBack();
   }
   return (
     <PageHeaderContainer>
