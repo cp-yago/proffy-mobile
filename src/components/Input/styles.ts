@@ -14,6 +14,7 @@ export const Container = styled.View<ContainerProps>`
   flex-direction: row;
   align-items: center;
 
+  border: 2px solid #e6e6f0;
   background-color: #fafafc;
 
   border-radius: 10px;
@@ -33,7 +34,7 @@ export const Icon = styled(FeatherIcon)`
 
 export const TextInput = styled.TextInput`
   flex: 1;
-  color: #fff;
   font-size: 16px;
+  color: #6a6180;
   font-family: 'RobotoSlab-Regular';
 `;
