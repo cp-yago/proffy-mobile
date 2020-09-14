@@ -5,6 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
+import SignUpSuccess from '../pages/SignUpSuccess';
 import StudyTabs from './StudyTabs';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -16,6 +17,7 @@ const AppStack: React.FC = () => {
       <Navigator screenOptions={{headerShown: false}}>
         <Screen name="SignIn" component={SignIn} />
         <Screen name="SignUp" component={SignUp} />
+        <Screen name="SignUpSuccess" component={SignUpSuccess} />
         <Screen name="ForgotPassword" component={ForgotPassword} />
         <Screen name="Landing" component={Landing} />
         <Screen name="GiveClasses" component={GiveClasses} />

@@ -7,14 +7,38 @@ import {
   TitleContainer,
 } from './styles';
 import {KeyboardAvoidingView, Platform, ScrollView} from 'react-native';
+import React, {useCallback, useRef} from 'react';
 
 import Button from '../../components/Button';
 import {Form} from '@unform/mobile';
+import {FormHandles} from '@unform/core';
 import Input from '../../components/Input';
 import PageHeader from '../../components/PageHeader';
-import React from 'react';
+import api from '../../services/api';
+import {useNavigation} from '@react-navigation/native';
+
+interface SignUpFormData {
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
+}
 
 const SignUp: React.FC = () => {
+  const formRef = useRef<FormHandles>(null);
+  const {navigate} = useNavigation();
+
+  const handleSignUp = useCallback(
+    async (data: SignUpFormData) => {
+      try {
+        const response = await api.post('/users', data);
+        console.log(response.data);
+        navigate('SignUpSuccess');
+      } catch (err) {}
+    },
+    [navigate],
+  );
+
   return (
     <>
       <PageHeader title="Cadastro" />
@@ -34,9 +58,14 @@ const SignUp: React.FC = () => {
                 </SignUpSubtitle>
               </TitleContainer>
 
-              <Form onSubmit={() => {}}>
+              <Form ref={formRef} onSubmit={handleSignUp}>
                 <StepName>01. Quem é você?</StepName>
-                <Input name="name" icon="user" placeholder="Nome" />
+                <Input
+                  name="name"
+                  icon="user"
+                  placeholder="Nome"
+                  returnKeyType="next"
+                />
                 <Input
                   name="surname"
                   icon="user-plus"
@@ -46,7 +75,12 @@ const SignUp: React.FC = () => {
                 <StepName>02. Email e Senha</StepName>
                 <Input name="email" icon="mail" placeholder="E-mail" />
                 <Input name="password" icon="lock" placeholder="Senha" />
-                <Button>Cadastrar</Button>
+                <Button
+                  onPress={() => {
+                    formRef.current?.submitForm();
+                  }}>
+                  Cadastrar
+                </Button>
               </Form>
             </FormContainer>
           </Container>
