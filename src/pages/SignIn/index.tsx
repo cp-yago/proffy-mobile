@@ -1,3 +1,4 @@
+import {Alert, KeyboardAvoidingView, Platform, TextInput} from 'react-native';
 import {
   BackgroundImage,
   CheckBoxContainer,
@@ -14,8 +15,7 @@ import {
   Title,
   TitleContainer,
 } from './styles';
-import {KeyboardAvoidingView, Platform, TextInput} from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 
 import Button from '../../components/Button';
 import CheckBox from '@react-native-community/checkbox';
@@ -25,14 +25,41 @@ import Input from '../../components/Input';
 import {ScrollView} from 'react-native-gesture-handler';
 import loginBackground from '../../assets/images/give-classes-background.png';
 import logoImg from '../../assets/images/logo2.png';
+import {useAuth} from '../../hooks/auth';
 import {useNavigation} from '@react-navigation/native';
+
+interface SignInFormData {
+  email: string;
+  password: string;
+}
 
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
   const {navigate} = useNavigation();
+  const {signIn} = useAuth();
 
   const [toggleCheckBox, setToggleCheckbox] = useState(false);
+
+  const handleSignIn = useCallback(
+    async (data: SignInFormData) => {
+      try {
+        console.log('chegou');
+
+        await signIn({
+          email: data.email,
+          password: data.password,
+        });
+      } catch (err) {
+        console.log(err);
+        Alert.alert(
+          'Erro na autenticação',
+          'Ocorreu um erro ao fazer login, cheque suas credenciais',
+        );
+      }
+    },
+    [signIn],
+  );
 
   return (
     <>
@@ -59,7 +86,7 @@ const SignIn: React.FC = () => {
                 </SignUp>
               </TitleContainer>
 
-              <Form ref={formRef} onSubmit={() => {}}>
+              <Form ref={formRef} onSubmit={handleSignIn}>
                 <Input
                   name="email"
                   icon="mail"
@@ -93,7 +120,12 @@ const SignIn: React.FC = () => {
                   </ForgotPassword>
                 </CheckBoxContainer>
 
-                <Button>Entrar</Button>
+                <Button
+                  onPress={() => {
+                    formRef.current?.submitForm();
+                  }}>
+                  Entrar
+                </Button>
               </Form>
             </FormLoginContainer>
           </Container>

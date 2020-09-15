@@ -1,9 +1,8 @@
 import React from 'react';
-
-import AppStack from './src/routes/AppStack';
+import Routes from './src/routes';
 
 const App: React.FC = () => {
-  return <AppStack />;
+  return <Routes />;
 };
 
 export default App;

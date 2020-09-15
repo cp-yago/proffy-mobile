@@ -3,21 +3,19 @@ import GiveClasses from '../pages/GiveClasses';
 import Landing from '../pages/Landing';
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import SignIn from '../pages/SignIn';
-import SignUp from '../pages/SignUp';
-import SignUpSuccess from '../pages/SignUpSuccess';
 import StudyTabs from './StudyTabs';
 import {createStackNavigator} from '@react-navigation/stack';
 
 const {Navigator, Screen} = createStackNavigator();
 
-const AppStack: React.FC = () => {
+const AppRoutes: React.FC = () => {
   return (
     <NavigationContainer>
-      <Navigator screenOptions={{headerShown: false}}>
-        <Screen name="SignIn" component={SignIn} />
-        <Screen name="SignUp" component={SignUp} />
-        <Screen name="SignUpSuccess" component={SignUpSuccess} />
+      <Navigator
+        screenOptions={{
+          headerShown: false,
+          cardStyle: {backgroundColor: '#312e38'},
+        }}>
         <Screen name="ForgotPassword" component={ForgotPassword} />
         <Screen name="Landing" component={Landing} />
         <Screen name="GiveClasses" component={GiveClasses} />
@@ -27,4 +25,4 @@ const AppStack: React.FC = () => {
   );
 };
 
-export default AppStack;
+export default AppRoutes;
