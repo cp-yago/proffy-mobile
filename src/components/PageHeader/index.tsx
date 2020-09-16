@@ -1,7 +1,6 @@
 import {
   GoBackButton,
   GoBackButtonIcon,
-  Header,
   HeaderTitle,
   Logo,
   PageHeaderContainer,
@@ -15,14 +14,11 @@ import {useNavigation} from '@react-navigation/native';
 
 interface PageHeaderProps {
   title: string;
+  name?: string;
   headerRight?: ReactNode;
 }
 
-const PageHeader: React.FC<PageHeaderProps> = ({
-  title,
-  headerRight,
-  children,
-}) => {
+const PageHeader: React.FC<PageHeaderProps> = ({title}) => {
   const {goBack} = useNavigation();
 
   function handleGoBackButton() {
@@ -35,15 +31,10 @@ const PageHeader: React.FC<PageHeaderProps> = ({
           <GoBackButtonIcon source={backIcon} />
         </GoBackButton>
 
+        <HeaderTitle>{title}</HeaderTitle>
+
         <Logo source={logoImg} resizeMode="contain" />
       </TopBar>
-
-      <Header>
-        <HeaderTitle>{title}</HeaderTitle>
-        {headerRight}
-      </Header>
-
-      {children}
     </PageHeaderContainer>
   );
 };

@@ -5,6 +5,4 @@ export const Container = styled.View`
   background-color: #f0f0f7;
 `;
 
-export const FavoritesScrollView = styled.ScrollView`
-  margin-top: -40px;
-`;
+export const FavoritesScrollView = styled.ScrollView``;

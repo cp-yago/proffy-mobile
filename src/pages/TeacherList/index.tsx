@@ -1,14 +1,13 @@
-import React from 'react';
+import {Container, TeacherListContainer} from './styles';
 
 import PageHeader from '../../components/PageHeader';
+import React from 'react';
 import TeacherItem from '../../components/TeacherItem';
-
-import {Container, TeacherListContainer} from './styles';
 
 const TeacherList: React.FC = () => {
   return (
     <Container>
-      <PageHeader title="Proffys disponíveis" />
+      <PageHeader title="Estudar" name="Proffys Disponíveis" />
 
       <TeacherListContainer>
         <TeacherItem />
