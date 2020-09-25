@@ -72,7 +72,6 @@ export const SectionTitle = styled.Text`
   font-family: 'Archivo-Regular';
   color: #32264d;
   font-size: 20px;
-  margin-top: 15px;
 `;
 
 export const InputName = styled.Text`
@@ -81,3 +80,55 @@ export const InputName = styled.Text`
   color: #9c98a6;
   margin-top: 10px;
 `;
+
+export const PickerIcon = styled(FeatherIcon)``;
+
+export const AvailableTimesContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+`;
+
+export const AddNewTimeContainer = styled.View``;
+
+export const AddNewTimeButton = styled.TouchableOpacity`
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+`;
+
+export const AddNewTimeIcon = styled(FeatherIcon)`
+  font-family: 'Archivo-Regular';
+  font-size: 14px;
+  color: #8257e5;
+`;
+
+export const AddNewTimeText = styled.Text`
+  color: #8257e5;
+  margin-left: 5px;
+`;
+
+export const DeleteTimeContainer = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px;
+`;
+
+export const DeleteTimeButton = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const DeleteTimeButtonIcon = styled(FeatherIcon)`
+  color: #e33d3d;
+`;
+
+export const DeleteTimeButtonText = styled.Text`
+  font-family: 'Archivo-Regular';
+  font-size: 12px;
+  color: #e33d3d;
+  margin-left: 10px;
+`;
+
+export const ScheduleItem = styled.View``;
