@@ -23,18 +23,19 @@ import giveClassesIcon from '../../assets/images/icons/give-classes.png';
 import heartIcon from '../../assets/images/icons/heart.png';
 import landingImg from '../../assets/images/landing.png';
 import studyIcon from '../../assets/images/icons/study.png';
-import {useAuth} from '../../hooks/auth';
-import {useNavigation} from '@react-navigation/native';
+import { useAuth } from '../../hooks/auth';
+import { useNavigation } from '@react-navigation/native';
 
 const Landing: React.FC = () => {
-  const {navigate} = useNavigation();
-  const {signOut, user} = useAuth();
+  const { navigate } = useNavigation();
+  const { signOut, user } = useAuth();
 
   const handleNavigateStudyPage = () => {
     navigate('Study');
   };
 
   const handleNavigateGiveClassesPage = () => {
+    console.log('foi ');
     navigate('GiveClasses');
   };
 
