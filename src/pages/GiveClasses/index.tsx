@@ -40,7 +40,6 @@ import Select from '../../components/Select';
 
 // Assets
 import backgroundImg from '../../assets/images/signup-success-background.png';
-import api from '../../services/api';
 
 interface ScheduleItem {
   id: number;

@@ -2,12 +2,12 @@ import React from 'react';
 
 import Ionicons from 'react-native-ionicons';
 
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import TeacherList from '../pages/TeacherList';
 import Favorites from '../pages/Favorites';
 
-const {Navigator, Screen} = createBottomTabNavigator();
+const { Navigator, Screen } = createBottomTabNavigator();
 
 const StudyTabs: React.FC = () => {
   return (
@@ -43,7 +43,7 @@ const StudyTabs: React.FC = () => {
         component={TeacherList}
         options={{
           tabBarLabel: 'Proffys',
-          tabBarIcon: ({color, size, focused}) => {
+          tabBarIcon: ({ color, size, focused }) => {
             return (
               <Ionicons
                 name="ios-easel"
@@ -59,7 +59,7 @@ const StudyTabs: React.FC = () => {
         component={Favorites}
         options={{
           tabBarLabel: 'Favoritos',
-          tabBarIcon: ({color, size, focused}) => {
+          tabBarIcon: ({ color, size, focused }) => {
             return (
               <Ionicons
                 name="ios-heart"
