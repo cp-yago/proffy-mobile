@@ -36,7 +36,7 @@ interface AuthContextData {
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-const AuthProvider: React.FC = ({children}) => {
+const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>({} as AuthState);
   const [loading, setLoading] = useState(true);
 
@@ -47,32 +47,43 @@ const AuthProvider: React.FC = ({children}) => {
         '@Proffy:user',
       ]);
 
+      console.log('loadStoragedData: ', token, user);
+
       if (token[1] && user[1]) {
         api.defaults.headers.authorization = `Bearer ${token[1]}`;
 
-        setData({token: token[1], user: JSON.parse(user[1])});
+        setData({ token: token[1], user: JSON.parse(user[1]) });
       }
       setLoading(false);
     }
     loadStoragedData();
   }, []);
 
-  const signIn = useCallback(async ({email, password}) => {
+  const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('sessions', {
       email,
       password,
     });
 
-    const {token, user} = response.data;
+    console.log('[SIGNIN] response.data: ', response.data);
 
-    await AsyncStorage.multiSet([
-      ['@Proffy:token', token],
-      ['@Proffy:user', JSON.stringify(user)],
-    ]);
+    const { token, user } = response.data;
+
+    console.log('[token]: ', token);
+    console.log('[user]: ', user);
+
+    try {
+      await AsyncStorage.multiSet([
+        ['@Proffy:token', token],
+        ['@Proffy:user', JSON.stringify(user)],
+      ]);
+    } catch (err) {
+      console.log(err);
+    }
 
     api.defaults.headers.authorization = `Bearer ${token}`;
 
-    setData({token, user});
+    setData({ token, user });
   }, []);
 
   const signOut = useCallback(async () => {
@@ -88,13 +99,20 @@ const AuthProvider: React.FC = ({children}) => {
         token: data.token,
         user,
       });
+      console.log(data.token);
     },
     [data.token],
   );
 
   return (
     <AuthContext.Provider
-      value={{user: data.user, signIn, signOut, loading, updateUser}}>
+      value={{
+        user: data.user,
+        signIn,
+        signOut,
+        loading,
+        updateUser,
+      }}>
       {children}
     </AuthContext.Provider>
   );
@@ -110,4 +128,4 @@ function useAuth(): AuthContextData {
   return context;
 }
 
-export {AuthProvider, useAuth};
+export { AuthProvider, useAuth };

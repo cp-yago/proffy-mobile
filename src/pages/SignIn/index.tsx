@@ -1,4 +1,4 @@
-import {Alert, KeyboardAvoidingView, Platform, TextInput} from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform, TextInput } from 'react-native';
 import {
   BackgroundImage,
   CheckBoxContainer,
@@ -15,18 +15,18 @@ import {
   Title,
   TitleContainer,
 } from './styles';
-import React, {useCallback, useRef, useState} from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import Button from '../../components/Button';
 import CheckBox from '@react-native-community/checkbox';
-import {Form} from '@unform/mobile';
-import {FormHandles} from '@unform/core';
+import { Form } from '@unform/mobile';
+import { FormHandles } from '@unform/core';
 import Input from '../../components/Input';
-import {ScrollView} from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import loginBackground from '../../assets/images/give-classes-background.png';
 import logoImg from '../../assets/images/logo2.png';
-import {useAuth} from '../../hooks/auth';
-import {useNavigation} from '@react-navigation/native';
+import { useAuth } from '../../hooks/auth';
+import { useNavigation } from '@react-navigation/native';
 
 interface SignInFormData {
   email: string;
@@ -36,8 +36,8 @@ interface SignInFormData {
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
-  const {navigate} = useNavigation();
-  const {signIn} = useAuth();
+  const { navigate } = useNavigation();
+  const { signIn } = useAuth();
 
   const [toggleCheckBox, setToggleCheckbox] = useState(false);
 
@@ -64,12 +64,12 @@ const SignIn: React.FC = () => {
   return (
     <>
       <KeyboardAvoidingView
-        style={{flex: 1}}
+        style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         enabled>
         <ScrollView
           keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{flex: 1}}>
+          contentContainerStyle={{ flex: 1 }}>
           <Container>
             <LogoContainer>
               <BackgroundImage source={loginBackground} resizeMode="contain">
@@ -112,7 +112,7 @@ const SignIn: React.FC = () => {
                   <CheckBox
                     value={toggleCheckBox}
                     onValueChange={(newValue) => setToggleCheckbox(newValue)}
-                    tintColors={{true: '#04D361', false: 'black'}}
+                    tintColors={{ true: '#04D361', false: 'black' }}
                   />
                   <CheckBoxText>Lembrar-me</CheckBoxText>
                   <ForgotPassword onPress={() => navigate('ForgotPassword')}>

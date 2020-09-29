@@ -31,6 +31,7 @@ const SignUp: React.FC = () => {
   const handleSignUp = useCallback(
     async (data: SignUpFormData) => {
       try {
+        console.log(data);
         const response = await api.post('/users', data);
         console.log(response.data);
         navigate('SignUpSuccess');
