@@ -49,7 +49,7 @@ interface ScheduleItem {
 const Profile: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const { updateUser } = useAuth();
+  const { updateUser, user } = useAuth();
 
   const [scheduleItems, setScheduleItems] = useState<ScheduleItem[] | null>(
     null,
@@ -149,20 +149,25 @@ const Profile: React.FC = () => {
                 <SectionTitle>Seus dados</SectionTitle>
                 <SectionDivider />
 
-                <InputName>Nome</InputName>
-                <Input name="name" icon="user" />
-
-                <InputName>Sobrenome</InputName>
-                <Input name="surname" icon="user-plus" />
+                <InputName>Nome completo</InputName>
+                <Input name="name" icon="user" value={user.name} />
 
                 <InputName>E-mail</InputName>
-                <Input name="email" icon="mail" />
+                <Input name="email" icon="mail" value={user.email} />
 
                 <InputName>Whatsapp</InputName>
-                <Input name="whatsapp" icon="smartphone" />
+                <Input
+                  name="whatsapp"
+                  icon="smartphone"
+                  placeholder="(XX) XXXXX-XXXX"
+                />
 
                 <InputName>Descrição</InputName>
-                <Input name="bio" icon="book" />
+                <Input
+                  name="bio"
+                  icon="book"
+                  placeholder="Um breve resumo sobre você"
+                />
 
                 <SectionTitle>Sobre a aula</SectionTitle>
                 <SectionDivider />

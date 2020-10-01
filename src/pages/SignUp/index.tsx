@@ -6,16 +6,16 @@ import {
   StepName,
   TitleContainer,
 } from './styles';
-import {KeyboardAvoidingView, Platform, ScrollView} from 'react-native';
-import React, {useCallback, useRef} from 'react';
+import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import React, { useCallback, useRef } from 'react';
 
 import Button from '../../components/Button';
-import {Form} from '@unform/mobile';
-import {FormHandles} from '@unform/core';
+import { Form } from '@unform/mobile';
+import { FormHandles } from '@unform/core';
 import Input from '../../components/Input';
 import PageHeader from '../../components/PageHeader';
 import api from '../../services/api';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 interface SignUpFormData {
   name: string;
@@ -26,13 +26,16 @@ interface SignUpFormData {
 
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const {navigate} = useNavigation();
+  const { navigate } = useNavigation();
 
   const handleSignUp = useCallback(
     async (data: SignUpFormData) => {
       try {
         console.log(data);
-        const response = await api.post('/users', data);
+        const response = await api.post('/users', {
+          ...data,
+          name: data.name + ' ' + data.surname,
+        });
         console.log(response.data);
         navigate('SignUpSuccess');
       } catch (err) {}
@@ -44,12 +47,12 @@ const SignUp: React.FC = () => {
     <>
       <PageHeader title="Cadastro" />
       <KeyboardAvoidingView
-        style={{flex: 1}}
+        style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         enabled>
         <ScrollView
           keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{flexGrow: 1}}>
+          contentContainerStyle={{ flexGrow: 1 }}>
           <Container>
             <FormContainer>
               <TitleContainer>
