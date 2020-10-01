@@ -1,9 +1,15 @@
 // Dependencies
 import React, { useCallback, useRef, useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from 'react-native';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import { useAuth } from '../../hooks/auth';
+import ImagePicker from 'react-native-image-picker';
 
 // Components
 import {
@@ -117,6 +123,41 @@ const Profile: React.FC = () => {
     [updateUser],
   );
 
+  const handleUpdateAvatar = useCallback(async () => {
+    ImagePicker.showImagePicker(
+      {
+        title: 'Selecione um avatar',
+        cancelButtonTitle: 'Cancelar',
+        takePhotoButtonTitle: 'Usar câmera',
+        chooseFromLibraryButtonTitle: 'Escolher da galeria',
+      },
+      (response) => {
+        if (response.didCancel) {
+          return;
+        }
+        if (response.error) {
+          Alert.alert('Erro ao atualizar avatar');
+          console.log(response.error);
+          return;
+        }
+
+        const data = new FormData();
+
+        data.append('avatar', {
+          type: 'image/jpeg',
+          name: `${user.id}.jpg`,
+          uri: response.uri,
+        });
+
+        console.log('chegou aqui: ', data);
+
+        api.patch('users/avatar', data).then((apiResponse) => {
+          updateUser(apiResponse.data);
+        });
+      },
+    );
+  }, [updateUser, user.id]);
+
   return (
     <>
       <PageHeader title="Meu perfil" />
@@ -130,11 +171,10 @@ const Profile: React.FC = () => {
           <Container>
             <AvatarContainer>
               <ImageBackground source={backgroundImg} resizeMode="contain">
-                <UserAvatarButton>
+                <UserAvatarButton onPress={handleUpdateAvatar}>
                   <UserAvatar
                     source={{
-                      uri:
-                        'https://avatars3.githubusercontent.com/u/22509891?s=460&u=1928b8f61bd9f9a3877091fe1c3c7c448a97a29f&v=4',
+                      uri: user.avatar,
                     }}
                   />
                   <UpdateAvatarIcon name="camera" size={20} />
