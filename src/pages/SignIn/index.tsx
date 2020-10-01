@@ -1,4 +1,18 @@
 import { Alert, KeyboardAvoidingView, Platform, TextInput } from 'react-native';
+import React, { useCallback, useRef, useState } from 'react';
+import CheckBox from '@react-native-community/checkbox';
+import { Form } from '@unform/mobile';
+import { FormHandles } from '@unform/core';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useAuth } from '../../hooks/auth';
+import { useNavigation } from '@react-navigation/native';
+import * as Yup from 'yup';
+
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import loginBackground from '../../assets/images/give-classes-background.png';
+import logoImg from '../../assets/images/logo2.png';
+
 import {
   BackgroundImage,
   CheckBoxContainer,
@@ -15,18 +29,6 @@ import {
   Title,
   TitleContainer,
 } from './styles';
-import React, { useCallback, useRef, useState } from 'react';
-
-import Button from '../../components/Button';
-import CheckBox from '@react-native-community/checkbox';
-import { Form } from '@unform/mobile';
-import { FormHandles } from '@unform/core';
-import Input from '../../components/Input';
-import { ScrollView } from 'react-native-gesture-handler';
-import loginBackground from '../../assets/images/give-classes-background.png';
-import logoImg from '../../assets/images/logo2.png';
-import { useAuth } from '../../hooks/auth';
-import { useNavigation } from '@react-navigation/native';
 
 interface SignInFormData {
   email: string;
@@ -44,7 +46,16 @@ const SignIn: React.FC = () => {
   const handleSignIn = useCallback(
     async (data: SignInFormData) => {
       try {
-        console.log('chegou');
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required('E-mail obrigatório')
+            .email('Digite um e-mail válido'),
+          password: Yup.string().min(6, 'A senha deve ter no mínimo 6 digitos'),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
 
         await signIn({
           email: data.email,
