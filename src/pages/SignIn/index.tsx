@@ -10,6 +10,7 @@ import * as Yup from 'yup';
 
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import PasswordInput from '../../components/PasswordInput';
 import loginBackground from '../../assets/images/give-classes-background.png';
 import logoImg from '../../assets/images/logo2.png';
 
@@ -109,7 +110,7 @@ const SignIn: React.FC = () => {
                   onSubmitEditing={() => {}}
                 />
 
-                <Input
+                <PasswordInput
                   ref={passwordInputRef}
                   name="password"
                   icon="lock"
