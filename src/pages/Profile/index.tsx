@@ -57,6 +57,13 @@ const Profile: React.FC = () => {
 
   const { updateUser, user } = useAuth();
 
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const [whatsapp, setWhatsapp] = useState('');
+  const [bio, setBio] = useState('');
+  const [subject, setSubject] = useState('');
+  const [cost, setCost] = useState('');
+
   const [scheduleItems, setScheduleItems] = useState<ScheduleItem[] | null>(
     null,
   );
@@ -100,28 +107,22 @@ const Profile: React.FC = () => {
     [scheduleItems],
   );
 
-  const handleUpdateProfile = useCallback(
-    async (data) => {
-      try {
-        console.log('[API]: ', api.defaults.headers.authorization);
-        const response = await api.put(
-          '/users',
-          {
-            name: data.name,
-            email: data.email,
-            whatsapp: data.whatsapp,
-            bio: data.bio,
-          },
-          { headers: { Authorization: api.defaults.headers.authorization } },
-        );
-        console.log('response: ', response.data);
-        updateUser(response.data);
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    [updateUser],
-  );
+  const handleUpdateProfile = useCallback(async () => {
+    try {
+      const data = {
+        name,
+        email,
+        whatsapp,
+        bio,
+      };
+
+      const response = await api.put('/users', data);
+
+      updateUser(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [updateUser, name, email, whatsapp, bio]);
 
   const handleUpdateAvatar = useCallback(async () => {
     ImagePicker.showImagePicker(
@@ -179,7 +180,7 @@ const Profile: React.FC = () => {
                   />
                   <UpdateAvatarIcon name="camera" size={20} />
                 </UserAvatarButton>
-                <UserName>Yago Cunha de Paula</UserName>
+                <UserName>{user.name}</UserName>
                 <Subject>Música</Subject>
               </ImageBackground>
             </AvatarContainer>
@@ -190,33 +191,57 @@ const Profile: React.FC = () => {
                 <SectionDivider />
 
                 <InputName>Nome completo</InputName>
-                <Input name="name" icon="user" value={user.name} />
+                <Input
+                  name="name"
+                  icon="user"
+                  value={name}
+                  onChangeText={(text) => setName(text)}
+                />
 
                 <InputName>E-mail</InputName>
-                <Input name="email" icon="mail" value={user.email} />
+                <Input
+                  name="email"
+                  icon="mail"
+                  value={email}
+                  onChangeText={(text) => setEmail(text)}
+                />
 
                 <InputName>Whatsapp</InputName>
                 <Input
                   name="whatsapp"
                   icon="smartphone"
                   placeholder="(XX) XXXXX-XXXX"
+                  value={whatsapp}
+                  onChangeText={(text) => setWhatsapp(text)}
                 />
 
                 <InputName>Descrição</InputName>
                 <Input
                   name="bio"
                   icon="book"
+                  value={bio}
                   placeholder="Um breve resumo sobre você"
+                  onChangeText={(text) => setBio(text)}
                 />
 
                 <SectionTitle>Sobre a aula</SectionTitle>
                 <SectionDivider />
 
                 <InputName>Matéria</InputName>
-                <Input name="subject" icon="book-open" />
+                <Input
+                  name="subject"
+                  icon="book-open"
+                  value={subject}
+                  onChangeText={(text) => setSubject(text)}
+                />
 
                 <InputName>Custo da sua hora por aula</InputName>
-                <Input name="hour-cost" icon="dollar-sign" />
+                <Input
+                  name="hour-cost"
+                  icon="dollar-sign"
+                  value={cost}
+                  onChangeText={(text) => setCost(text)}
+                />
 
                 <AvailableTimesContainer>
                   <SectionTitle>Horários disponíveis</SectionTitle>
