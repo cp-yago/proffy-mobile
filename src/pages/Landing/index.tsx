@@ -54,8 +54,9 @@ const Landing: React.FC = () => {
           <ProfileButton onPress={navigateToProfile}>
             <Avatar
               source={{
-                uri:
-                  'https://avatars3.githubusercontent.com/u/22509891?s=460&u=1928b8f61bd9f9a3877091fe1c3c7c448a97a29f&v=4',
+                uri: user.avatar_url
+                  ? user.avatar_url
+                  : 'https://lh3.googleusercontent.com/proxy/KM8FufXYH35HNvM3spbl27-KFUe-ibgMVGLzWHI0xybIqsbHDeEIWg42N6xDv_Q81vuLIOjhhBNYvANF0jmuXx1TpNgcXI3mwHd3h7ZZt45Ovgd2ZhVq4ec',
               }}
             />
           </ProfileButton>
