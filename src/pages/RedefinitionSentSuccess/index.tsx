@@ -14,11 +14,11 @@ import successImg from '../../assets/images/signup-sucess.png';
 import { useNavigation } from '@react-navigation/native';
 
 const RedefinitionSentSuccess: React.FC = () => {
-  const { goBack } = useNavigation();
+  const navigation = useNavigation();
 
   const handleFinished = useCallback(() => {
-    goBack();
-  }, [goBack]);
+    navigation.navigate('SignIn');
+  }, [navigation]);
 
   return (
     <Container>

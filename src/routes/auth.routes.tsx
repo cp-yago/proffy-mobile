@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import ForgotPassword from '../pages/ForgotPassword';
+import RedefinitionSentSuccess from '../pages/RedefinitionSentSuccess';
 import SignUpSuccess from '../pages/SignUpSuccess';
 import Onboarding from '../pages/Onboarding';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -36,6 +37,10 @@ const AuthRoutes: React.FC = () => {
         <Screen name="SignUp" component={SignUp} />
         <Screen name="SignUpSuccess" component={SignUpSuccess} />
         <Screen name="ForgotPassword" component={ForgotPassword} />
+        <Screen
+          name="RedefinitionSentSuccess"
+          component={RedefinitionSentSuccess}
+        />
       </Navigator>
     </NavigationContainer>
   );

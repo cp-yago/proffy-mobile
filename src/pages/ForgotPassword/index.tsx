@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, Platform } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import {
   BackgroundImage,
   Container,
@@ -12,7 +12,7 @@ import {
   SubTitle,
   TitleContainer,
 } from './styles';
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 
 import Button from '../../components/Button';
 import { Form } from '@unform/mobile';
@@ -23,15 +23,45 @@ import loginBackground from '../../assets/images/give-classes-background.png';
 import logoImg from '../../assets/images/logo2.png';
 import { useNavigation } from '@react-navigation/native';
 import backIcon from '../../assets/images/icons/back.png';
+import * as Yup from 'yup';
+import api from '../../services/api';
 
-interface SignInFormData {
+interface RecoverPasswordFormData {
   email: string;
-  password: string;
 }
 
 const ForgotPassword: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const { goBack } = useNavigation();
+  const navigation = useNavigation();
+
+  const handleSendEmail = useCallback(
+    async (data: RecoverPasswordFormData) => {
+      try {
+        formRef.current?.setErrors({});
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required(
+              'Insira um e-mail para enviarmos o link para resetar sua senha',
+            )
+            .email('Insira um e-mail válido'),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        await api.post('/password/recover', data);
+
+        navigation.navigate('RedefinitionSentSuccess');
+      } catch (err) {
+        Alert.alert(
+          'Erro ao enviar e-mail para resetar senha',
+          'Ocorreu um erro. Confira o e-mail e tente novamente!',
+        );
+      }
+    },
+    [navigation],
+  );
 
   return (
     <>
@@ -51,7 +81,7 @@ const ForgotPassword: React.FC = () => {
             </LogoContainer>
 
             <FormLoginContainer>
-              <GoBackButton onPress={goBack}>
+              <GoBackButton onPress={navigation.goBack}>
                 <GoBackButtonIcon source={backIcon} />
               </GoBackButton>
               <TitleContainer>
@@ -59,7 +89,7 @@ const ForgotPassword: React.FC = () => {
                 <SubTitle>Não esquenta, vamos dar um jeito nisso.</SubTitle>
               </TitleContainer>
 
-              <Form ref={formRef} onSubmit={() => {}}>
+              <Form ref={formRef} onSubmit={handleSendEmail}>
                 <Input
                   name="email"
                   icon="mail"
