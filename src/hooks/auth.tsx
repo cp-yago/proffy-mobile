@@ -13,7 +13,10 @@ interface User {
   id: string;
   name: string;
   email: string;
-  avatar: string;
+  avatar?: string | null;
+  whatsapp?: string;
+  bio?: string;
+  avatar_url?: string | null;
 }
 
 interface AuthState {

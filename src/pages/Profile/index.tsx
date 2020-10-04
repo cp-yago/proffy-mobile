@@ -44,6 +44,7 @@ import Select from '../../components/Select';
 // Assets
 import backgroundImg from '../../assets/images/signup-success-background.png';
 import api from '../../services/api';
+import { useNavigation } from '@react-navigation/native';
 
 interface ScheduleItem {
   id: number;
@@ -56,11 +57,19 @@ const Profile: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const { updateUser, user } = useAuth();
+  const { navigate } = useNavigation();
 
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
-  const [whatsapp, setWhatsapp] = useState('');
-  const [bio, setBio] = useState('');
+  const [avatar, setAvatar] = useState(() =>
+    user.avatar_url
+      ? user.avatar_url
+      : 'https://lh3.googleusercontent.com/proxy/KM8FufXYH35HNvM3spbl27-KFUe-ibgMVGLzWHI0xybIqsbHDeEIWg42N6xDv_Q81vuLIOjhhBNYvANF0jmuXx1TpNgcXI3mwHd3h7ZZt45Ovgd2ZhVq4ec',
+  );
+  const [whatsapp, setWhatsapp] = useState(() =>
+    user.whatsapp ? user.whatsapp : '',
+  );
+  const [bio, setBio] = useState(() => (user.bio ? user.bio : ''));
   const [subject, setSubject] = useState('');
   const [cost, setCost] = useState('');
 
@@ -118,46 +127,56 @@ const Profile: React.FC = () => {
 
       const response = await api.put('/users', data);
 
+      navigate('Landing');
+
       updateUser(response.data);
     } catch (err) {
-      console.log(err);
+      Alert.alert('Erro ao atualizar perfil');
     }
-  }, [updateUser, name, email, whatsapp, bio]);
+  }, [updateUser, name, email, whatsapp, bio, navigate]);
 
-  const handleUpdateAvatar = useCallback(async () => {
+  const handleUpdateAvatar = useCallback(() => {
     ImagePicker.showImagePicker(
       {
         title: 'Selecione um avatar',
         cancelButtonTitle: 'Cancelar',
         takePhotoButtonTitle: 'Usar câmera',
         chooseFromLibraryButtonTitle: 'Escolher da galeria',
+        mediaType: 'photo',
       },
-      (response) => {
-        if (response.didCancel) {
+      async (image) => {
+        if (image.didCancel) {
           return;
         }
-        if (response.error) {
+
+        if (image.error) {
           Alert.alert('Erro ao atualizar avatar');
-          console.log(response.error);
           return;
         }
 
         const data = new FormData();
 
         data.append('avatar', {
-          type: 'image/jpeg',
-          name: `${user.id}.jpg`,
-          uri: response.uri,
+          type: image.type,
+          name: image.fileName,
+          uri: image.uri,
         });
 
-        console.log('chegou aqui: ', data);
+        try {
+          const response = await api.patch('/users/avatar', data);
 
-        api.patch('users/avatar', data).then((apiResponse) => {
-          updateUser(apiResponse.data);
-        });
+          console.log(response.data);
+
+          updateUser(response.data);
+          console.log(response.data);
+          setAvatar(response.data.avatar_url);
+        } catch (err) {
+          console.log(err);
+          Alert.alert('Erro ao atualizar avatar');
+        }
       },
     );
-  }, [updateUser, user.id]);
+  }, [updateUser]);
 
   return (
     <>
@@ -175,12 +194,12 @@ const Profile: React.FC = () => {
                 <UserAvatarButton onPress={handleUpdateAvatar}>
                   <UserAvatar
                     source={{
-                      uri: user.avatar,
+                      uri: avatar,
                     }}
                   />
                   <UpdateAvatarIcon name="camera" size={20} />
                 </UserAvatarButton>
-                <UserName>{user.name}</UserName>
+                <UserName>{name}</UserName>
                 <Subject>Música</Subject>
               </ImageBackground>
             </AvatarContainer>

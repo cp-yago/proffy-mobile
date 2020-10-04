@@ -6,7 +6,12 @@ import {
   StepName,
   TitleContainer,
 } from './styles';
-import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from 'react-native';
 import React, { useCallback, useRef } from 'react';
 
 import Button from '../../components/Button';
@@ -31,14 +36,20 @@ const SignUp: React.FC = () => {
   const handleSignUp = useCallback(
     async (data: SignUpFormData) => {
       try {
-        console.log(data);
-        const response = await api.post('/users', {
-          ...data,
-          name: data.name + ' ' + data.surname,
+        const { name, surname, email, password } = data;
+        const parsedName = name + ' ' + surname;
+
+        console.log(parsedName, email, password);
+        await api.post('/users', {
+          name: parsedName,
+          email,
+          password,
         });
-        console.log(response.data);
+
         navigate('SignUpSuccess');
-      } catch (err) {}
+      } catch (err) {
+        Alert.alert('Erro no cadastro. Tente novamente!');
+      }
     },
     [navigate],
   );
