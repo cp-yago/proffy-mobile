@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {RectButton} from 'react-native-gesture-handler';
+import { RectButton } from 'react-native-gesture-handler';
 
 interface FavoriteButtonProps {
   favorited: boolean;
@@ -110,4 +110,26 @@ export const ContactButtonText = styled.Text`
   font-family: 'Archivo_700Bold';
   font-size: 16px;
   margin-left: 16px;
+`;
+
+export const WeekSchedule = styled.View`
+  border-top-width: 1px;
+  border-top-color: #e6e6f0;
+  margin-top: 18px;
+  align-items: center;
+`;
+
+export const WeekScheduleHeader = styled.View`
+  flex-direction: row;
+  width: 70%;
+  margin-top: 20px;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const WeekSCheduleText = styled.Text`
+  font-family: 'Poppins-Regular';
+  font-weight: 400;
+  font-size: 10px;
+  color: #9c98a6;
 `;

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import heartOutlineIcon from '../../assets/images/icons/heart-outline.png';
 import whatsAppIcon from '../../assets/images/icons/whatsapp.png';
+
+import ScheduleItem from '../../components/ScheduleItem';
 
 import {
   Container,
@@ -20,9 +22,66 @@ import {
   ContactButton,
   ContactButtonIcon,
   ContactButtonText,
+  WeekSchedule,
+  WeekScheduleHeader,
+  WeekSCheduleText,
 } from './styles';
 
-const TeacherItem: React.FC = () => {
+export interface Teacher {
+  id: string;
+  avatar: string;
+  bio: string;
+  cost: string;
+  name: string;
+  subject: string;
+  whatsapp: string;
+}
+
+export interface ScheduleItem {
+  week_day: number;
+  from: number;
+  to: number;
+  class_id: number;
+}
+
+interface TeacherItemProps {
+  teacher: Teacher;
+  favorited?: boolean;
+  schedule: ScheduleItem[];
+}
+
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, schedule }) => {
+  const daysSchedule = useMemo(() => {
+    const weekDays = [1, 2, 3, 4, 5];
+
+    const weekAvailability = weekDays.map((weekDay) => {
+      const foundDaySchedule = schedule.find(
+        (daysSchedule) => daysSchedule.week_day === weekDay,
+      );
+
+      if (foundDaySchedule) {
+        return {
+          ...foundDaySchedule,
+          available: true,
+        };
+      } else {
+        return {
+          from: 0,
+          to: 0,
+          class_id: 0,
+          week_day: weekDay,
+          available: false,
+        };
+      }
+    });
+
+    return weekAvailability;
+  }, [schedule]);
+
+  useEffect(() => {
+    console.log('daysSchedule', daysSchedule);
+  }, [daysSchedule]);
+
   return (
     <Container>
       <ProfileContainer>
@@ -34,22 +93,32 @@ const TeacherItem: React.FC = () => {
         />
 
         <ProfileInfoContainer>
-          <ProfileName>Yago Cunha</ProfileName>
-          <ProfileSubject>Música</ProfileSubject>
+          <ProfileName>{teacher.user.name}</ProfileName>
+          <ProfileSubject>{teacher.subject}</ProfileSubject>
         </ProfileInfoContainer>
       </ProfileContainer>
 
-      <BioDescription>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s. Lorem Ipsum is simply dummy text of the printing and
-        typesetting industry. Lorem Ipsum has been the industry's standard dummy
-        text ever since the 1500s.
-      </BioDescription>
+      <BioDescription>{teacher.user.bio}</BioDescription>
+
+      <WeekSchedule>
+        <WeekScheduleHeader>
+          <WeekSCheduleText>Dia</WeekSCheduleText>
+          <WeekSCheduleText>Horário</WeekSCheduleText>
+        </WeekScheduleHeader>
+
+        {daysSchedule.map((daySchedule) => {
+          return (
+            <ScheduleItem
+              key={daySchedule.week_day}
+              daySchedule={daySchedule}
+            />
+          );
+        })}
+      </WeekSchedule>
 
       <ProfileContainerFooter>
         <Price>Preço/hora {'  '}</Price>
-        <PriceValue>R$ 80,00</PriceValue>
+        <PriceValue>{teacher.cost}</PriceValue>
       </ProfileContainerFooter>
 
       <ButtonsContainer>
