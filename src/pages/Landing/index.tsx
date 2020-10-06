@@ -35,7 +35,6 @@ const Landing: React.FC = () => {
   };
 
   const handleNavigateGiveClassesPage = () => {
-    console.log('foi ');
     navigate('GiveClasses');
   };
 

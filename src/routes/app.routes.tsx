@@ -1,13 +1,14 @@
 import ForgotPassword from '../pages/ForgotPassword';
 import GiveClasses from '../pages/GiveClasses';
+import CreateClass from '../pages/CreateClass';
 import Landing from '../pages/Landing';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import Profile from '../pages/Profile';
 import React from 'react';
 import StudyTabs from './StudyTabs';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const {Navigator, Screen} = createStackNavigator();
+const { Navigator, Screen } = createStackNavigator();
 
 const AppRoutes: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const AppRoutes: React.FC = () => {
         }}>
         <Screen name="Landing" component={Landing} />
         <Screen name="GiveClasses" component={GiveClasses} />
+        <Screen name="CreateClass" component={CreateClass} />
         <Screen name="ForgotPassword" component={ForgotPassword} />
         <Screen name="Profile" component={Profile} />
         <Screen name="Study" component={StudyTabs} />

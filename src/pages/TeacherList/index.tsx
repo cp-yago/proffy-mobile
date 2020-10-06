@@ -45,7 +45,6 @@ const TeacherList: React.FC = () => {
 
   const handleFiltersSubmit = useCallback(async () => {
     const data = { subject, week_day, time };
-    console.log('DATA: ', data);
 
     const response = await api.get('/classes', {
       params: {
@@ -54,12 +53,9 @@ const TeacherList: React.FC = () => {
         time,
       },
     });
-    console.log('response', response.data);
     setFilterVisible(false);
     setTeachers(response.data);
-
-    console.log('TEACHERS: ', teachers);
-  }, [subject, week_day, time, teachers]);
+  }, [subject, week_day, time]);
 
   return (
     <Container>

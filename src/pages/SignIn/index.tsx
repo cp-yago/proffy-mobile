@@ -63,7 +63,6 @@ const SignIn: React.FC = () => {
           password: data.password,
         });
       } catch (err) {
-        console.log(err);
         Alert.alert(
           'Erro na autenticação',
           'Ocorreu um erro ao fazer login, cheque suas credenciais',

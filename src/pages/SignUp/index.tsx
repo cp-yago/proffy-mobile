@@ -39,7 +39,6 @@ const SignUp: React.FC = () => {
         const { name, surname, email, password } = data;
         const parsedName = name + ' ' + surname;
 
-        console.log(parsedName, email, password);
         await api.post('/users', {
           name: parsedName,
           email,
