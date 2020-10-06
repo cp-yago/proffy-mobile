@@ -1,3 +1,9 @@
+import React, { useCallback, useRef } from 'react';
+import { Form } from '@unform/mobile';
+import { FormHandles } from '@unform/core';
+import { useNavigation } from '@react-navigation/native';
+import api from '../../services/api';
+import * as Yup from 'yup';
 import {
   Container,
   FormContainer,
@@ -6,21 +12,17 @@ import {
   StepName,
   TitleContainer,
 } from './styles';
+
 import {
   Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
 } from 'react-native';
-import React, { useCallback, useRef } from 'react';
 
 import Button from '../../components/Button';
-import { Form } from '@unform/mobile';
-import { FormHandles } from '@unform/core';
 import Input from '../../components/Input';
 import PageHeader from '../../components/PageHeader';
-import api from '../../services/api';
-import { useNavigation } from '@react-navigation/native';
 
 interface SignUpFormData {
   name: string;
@@ -38,6 +40,18 @@ const SignUp: React.FC = () => {
       try {
         const { name, surname, email, password } = data;
         const parsedName = name + ' ' + surname;
+
+        const schema = Yup.object().shape({
+          name: Yup.string().required('Nome obrigatório'),
+          email: Yup.string()
+            .required('E-mail obrigatório')
+            .email('Digite um e-mail válido'),
+          password: Yup.string().required('Senha obrigatória'),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
 
         await api.post('/users', {
           name: parsedName,
