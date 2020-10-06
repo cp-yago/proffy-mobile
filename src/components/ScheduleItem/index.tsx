@@ -8,11 +8,11 @@ import arrowRightIcon from '../../assets/images/icons/seta.png';
 
 interface ScheduleItemProps {
   daySchedule: {
-    available: boolean;
+    available?: boolean;
     week_day: number;
     from: number;
     to: number;
-    class_id: number;
+    class_id?: number;
   };
 }
 
