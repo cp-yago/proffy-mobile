@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import heartOutlineIcon from '../../assets/images/icons/heart-outline.png';
+import unfavoriteIcon from '../../assets/images/icons/unfavorite.png';
 import whatsAppIcon from '../../assets/images/icons/whatsapp.png';
 
 import ScheduleItem from '../../components/ScheduleItem';
@@ -78,6 +79,12 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, schedule }) => {
     return weekAvailability;
   }, [schedule]);
 
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const handleToggleFavorite = useCallback(async () => {
+    setIsFavorite(!isFavorite);
+  }, [isFavorite]);
+
   useEffect(() => {
     console.log('daysSchedule', daysSchedule);
   }, [daysSchedule]);
@@ -107,12 +114,14 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, schedule }) => {
         </WeekScheduleHeader>
 
         {daysSchedule.map((daySchedule) => {
-          return (
-            <ScheduleItem
-              key={daySchedule.week_day}
-              daySchedule={daySchedule}
-            />
-          );
+          if (daySchedule.from !== daySchedule.to) {
+            return (
+              <ScheduleItem
+                key={daySchedule.week_day}
+                daySchedule={daySchedule}
+              />
+            );
+          }
         })}
       </WeekSchedule>
 
@@ -122,8 +131,12 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, schedule }) => {
       </ProfileContainerFooter>
 
       <ButtonsContainer>
-        <FavoriteButton favorited={false}>
-          <FavoriteIcon source={heartOutlineIcon} />
+        <FavoriteButton favorited={isFavorite} onPress={handleToggleFavorite}>
+          {isFavorite ? (
+            <FavoriteIcon source={unfavoriteIcon} />
+          ) : (
+            <FavoriteIcon source={heartOutlineIcon} />
+          )}
         </FavoriteButton>
 
         <ContactButton>
