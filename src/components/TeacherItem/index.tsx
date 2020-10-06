@@ -5,6 +5,7 @@ import unfavoriteIcon from '../../assets/images/icons/unfavorite.png';
 import whatsAppIcon from '../../assets/images/icons/whatsapp.png';
 
 import ScheduleItem from '../../components/ScheduleItem';
+import { useAuth } from '../../hooks/auth';
 
 import {
   Container,
@@ -85,6 +86,8 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, schedule }) => {
     setIsFavorite(!isFavorite);
   }, [isFavorite]);
 
+  const { user } = useAuth();
+
   useEffect(() => {
     console.log('daysSchedule', daysSchedule);
   }, [daysSchedule]);
@@ -94,8 +97,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, schedule }) => {
       <ProfileContainer>
         <ProfileAvatar
           source={{
-            uri:
-              'https://avatars3.githubusercontent.com/u/22509891?s=460&u=1928b8f61bd9f9a3877091fe1c3c7c448a97a29f&v=4',
+            uri: user.avatar_url,
           }}
         />
 

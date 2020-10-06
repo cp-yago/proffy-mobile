@@ -1,5 +1,5 @@
 // Dependencies
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Alert,
   KeyboardAvoidingView,
@@ -10,6 +10,7 @@ import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import { useAuth } from '../../hooks/auth';
 import ImagePicker from 'react-native-image-picker';
+import * as Yup from 'yup';
 
 // Components
 import {
@@ -40,13 +41,14 @@ const Profile: React.FC = () => {
   const { updateUser, user } = useAuth();
   const { navigate } = useNavigation();
 
+  useEffect(() => {
+    console.log('user', user);
+  }, [user]);
+
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
-  const [avatar, setAvatar] = useState(() =>
-    user.avatar_url
-      ? user.avatar_url
-      : 'https://lh3.googleusercontent.com/proxy/KM8FufXYH35HNvM3spbl27-KFUe-ibgMVGLzWHI0xybIqsbHDeEIWg42N6xDv_Q81vuLIOjhhBNYvANF0jmuXx1TpNgcXI3mwHd3h7ZZt45Ovgd2ZhVq4ec',
-  );
+  const [avatar, setAvatar] = useState(user.avatar_url);
+
   const [whatsapp, setWhatsapp] = useState(() =>
     user.whatsapp ? user.whatsapp : '',
   );
@@ -60,6 +62,19 @@ const Profile: React.FC = () => {
         whatsapp,
         bio,
       };
+
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Nome obrigatório'),
+        email: Yup.string()
+          .required('E-mail obrigatório')
+          .email('Digite um e-mail válido'),
+        whatsapp: Yup.string().required('Whatsapp obrigatório'),
+        bio: Yup.string(),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
 
       const response = await api.put('/users', data);
 
