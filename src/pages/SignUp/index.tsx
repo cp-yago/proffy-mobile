@@ -102,7 +102,12 @@ const SignUp: React.FC = () => {
 
                 <StepName>02. Email e Senha</StepName>
                 <Input name="email" icon="mail" placeholder="E-mail" />
-                <Input name="password" icon="lock" placeholder="Senha" />
+                <Input
+                  name="password"
+                  icon="lock"
+                  placeholder="Senha"
+                  secureTextEntry
+                />
                 <Button
                   onPress={() => {
                     formRef.current?.submitForm();

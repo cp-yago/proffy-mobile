@@ -113,6 +113,20 @@ const CreateClass: React.FC = () => {
       return { week_day, from, to };
     });
 
+    const checkIfStartIsBeforeFinish = parsedScheduleItem.find(
+      (scheduleItem) =>
+        Number(scheduleItem.from.slice(0, 2)) >=
+        Number(scheduleItem.to.slice(0, 2)),
+    );
+
+    if (checkIfStartIsBeforeFinish) {
+      Alert.alert(
+        'Atenção!',
+        'Sua aula deve acabar em um horário posterior ao que começa.',
+      );
+      return;
+    }
+
     try {
       const response = await api.post('/classes', {
         subject,
@@ -127,7 +141,7 @@ const CreateClass: React.FC = () => {
       }
 
       if (parsedScheduleItem.length === 0) {
-        return navigation.goBack();
+        return navigation.navigate('CreateClassSuccess');
       }
 
       await api.post(`/classes/${class_id}/class_schedules`, {
