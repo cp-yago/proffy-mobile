@@ -156,5 +156,6 @@ export const NonExistingClasses = styled.Text`
   font-family: 'Poppins-Regular';
   font-size: 16px;
   color: #9c98a6;
-  margin-left: 16px;
+  margin: auto;
+  margin-left: 80px;
 `;

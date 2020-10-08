@@ -18,7 +18,7 @@ const GiveClassesSuccess: React.FC = () => {
 
   const handleFinished = useCallback(() => {
     reset({
-      routes: [{ name: 'Landing' }],
+      routes: [{ name: 'GiveClasses' }],
       index: 0,
     });
   }, [reset]);
@@ -27,10 +27,10 @@ const GiveClassesSuccess: React.FC = () => {
     <Container>
       <ImageBackground resizeMode="contain" source={backgroundImg}>
         <SuccessImage source={successImg} />
-        <SuccessTitle>Cadastro salvo!</SuccessTitle>
+        <SuccessTitle>Aula {'\n'}registrada</SuccessTitle>
         <SuccessSubtitle>
-          Tudo certo, seu cadastro está nna nossa lista de professores. Agora é
-          só ficar de olho no seu Whatsapp.
+          Tudo certo, sua aula foi cadastrada na nossa plataforma. Agora é só
+          aguardar algum aluno entrar em contato.
         </SuccessSubtitle>
       </ImageBackground>
       <GoToLoginButtom onPress={handleFinished}>

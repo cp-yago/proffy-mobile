@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 
 export const Container = styled.View``;
 
-export const TeacherListContainer = styled.ScrollView`
+export const ClassListContainer = styled.ScrollView`
   /* margin-top: -40px; */
 `;
 

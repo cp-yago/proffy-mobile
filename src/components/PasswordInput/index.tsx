@@ -94,6 +94,7 @@ const PasswordInput: React.RefForwardingComponent<InputRef, InputProps> = (
 
       <TextInput
         ref={inputElementRef}
+        secureTextEntry={hidePass}
         keyboardAppearance="dark"
         placeholderTextColor="#666360"
         defaultValue={defaultValue}

@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PageHeader from '../../components/PageHeader';
 import Select from '../../components/Select';
-import TeacherItem, { Teacher } from '../../components/TeacherItem';
+import ClassItem, { ClassItemProps } from '../../components/ClassItem';
 
 import Icon from 'react-native-vector-icons/Feather';
 
 import {
   styles,
   Container,
-  TeacherListContainer,
+  ClassListContainer,
   SearchFormContainer,
   SearchFormLabels,
   SearchButtom,
@@ -23,9 +23,27 @@ import {
 import api from '../../services/api';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const TeacherList: React.FC = () => {
+interface GetFilteredClassesResponse {
+  totalClassesFound: number;
+  totalClassesInPage: number;
+  from: number;
+  to: number;
+  page: number;
+  classes: ClassItemProps[];
+}
+
+const ClassList: React.FC = () => {
   const [filterVisible, setFilterVisible] = useState(false);
-  const [teachers, setTeachers] = useState(null);
+  const [filteredClassesData, setFilteredClassesData] = useState<
+    GetFilteredClassesResponse
+  >({
+    totalClassesFound: 0,
+    totalClassesInPage: 0,
+    from: 0,
+    to: 0,
+    classes: [],
+    page: 1,
+  });
 
   const [subject, setSubject] = useState(null);
   const [week_day, setWeek_day] = useState(null);
@@ -34,7 +52,8 @@ const TeacherList: React.FC = () => {
   useEffect(() => {
     async function loadClasses() {
       const response = await api.get('/classes');
-      setTeachers(response.data);
+
+      setFilteredClassesData(response.data);
     }
     loadClasses();
   }, []);
@@ -44,8 +63,6 @@ const TeacherList: React.FC = () => {
   };
 
   const handleFiltersSubmit = useCallback(async () => {
-    const data = { subject, week_day, time };
-
     const response = await api.get('/classes', {
       params: {
         subject,
@@ -53,8 +70,10 @@ const TeacherList: React.FC = () => {
         time,
       },
     });
+
     setFilterVisible(false);
-    setTeachers(response.data);
+
+    setFilteredClassesData(response.data);
   }, [subject, week_day, time]);
 
   return (
@@ -154,21 +173,21 @@ const TeacherList: React.FC = () => {
           </SearchForms>
         )}
 
-        <TeacherListContainer>
-          {teachers &&
-            teachers.classes.map((teacher: Teacher) => {
-              return (
-                <TeacherItem
-                  key={teacher.id}
-                  teacher={teacher}
-                  schedule={teacher.classes_schedules}
-                />
-              );
-            })}
-        </TeacherListContainer>
+        <ClassListContainer>
+          {filteredClassesData.classes.map((classItem: ClassItemProps) => (
+            <ClassItem
+              key={classItem.id}
+              id={classItem.id}
+              cost={classItem.cost}
+              schedule={classItem.schedule}
+              user={classItem.user}
+              subject={classItem.subject}
+            />
+          ))}
+        </ClassListContainer>
       </ScrollView>
     </Container>
   );
 };
 
-export default TeacherList;
+export default ClassList;

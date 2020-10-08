@@ -1,6 +1,7 @@
 import ForgotPassword from '../pages/ForgotPassword';
 import GiveClasses from '../pages/GiveClasses';
 import CreateClass from '../pages/CreateClass';
+import CreateClassSuccess from '../pages/CreateClassSuccess';
 import Landing from '../pages/Landing';
 import { NavigationContainer } from '@react-navigation/native';
 import Profile from '../pages/Profile';
@@ -20,6 +21,7 @@ const AppRoutes: React.FC = () => {
         <Screen name="Landing" component={Landing} />
         <Screen name="GiveClasses" component={GiveClasses} />
         <Screen name="CreateClass" component={CreateClass} />
+        <Screen name="CreateClassSuccess" component={CreateClassSuccess} />
         <Screen name="ForgotPassword" component={ForgotPassword} />
         <Screen name="Profile" component={Profile} />
         <Screen name="Study" component={StudyTabs} />

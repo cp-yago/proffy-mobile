@@ -4,7 +4,7 @@ import Ionicons from 'react-native-ionicons';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import TeacherList from '../pages/TeacherList';
+import ClassList from '../pages/ClassList';
 import Favorites from '../pages/Favorites';
 
 const { Navigator, Screen } = createBottomTabNavigator();
@@ -39,8 +39,8 @@ const StudyTabs: React.FC = () => {
         activeTintColor: '#32264d',
       }}>
       <Screen
-        name="TeacherList"
-        component={TeacherList}
+        name="ClassList"
+        component={ClassList}
         options={{
           tabBarLabel: 'Proffys',
           tabBarIcon: ({ color, size, focused }) => {

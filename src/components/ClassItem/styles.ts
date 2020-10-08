@@ -127,7 +127,7 @@ export const WeekScheduleHeader = styled.View`
   align-items: center;
 `;
 
-export const WeekSCheduleText = styled.Text`
+export const WeekScheduleText = styled.Text`
   font-family: 'Poppins-Regular';
   font-weight: 400;
   font-size: 10px;
