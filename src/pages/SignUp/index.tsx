@@ -101,12 +101,21 @@ const SignUp: React.FC = () => {
                 />
 
                 <StepName>02. Email e Senha</StepName>
-                <Input name="email" icon="mail" placeholder="E-mail" />
+                <Input
+                  name="email"
+                  icon="mail"
+                  placeholder="E-mail"
+                  autoCorrect={false}
+                  autoCapitalize="none"
+                  keyboardType="email-address"
+                  returnKeyType="next"
+                />
                 <Input
                   name="password"
                   icon="lock"
                   placeholder="Senha"
                   secureTextEntry
+                  returnKeyType="go"
                 />
                 <Button
                   onPress={() => {

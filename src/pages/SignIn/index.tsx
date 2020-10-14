@@ -119,12 +119,6 @@ const SignIn: React.FC = () => {
                 />
 
                 <CheckBoxContainer>
-                  <CheckBox
-                    value={toggleCheckBox}
-                    onValueChange={(newValue) => setToggleCheckbox(newValue)}
-                    tintColors={{ true: '#04D361', false: 'black' }}
-                  />
-                  <CheckBoxText>Lembrar-me</CheckBoxText>
                   <ForgotPassword onPress={() => navigate('ForgotPassword')}>
                     <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
                   </ForgotPassword>

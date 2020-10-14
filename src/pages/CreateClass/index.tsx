@@ -181,12 +181,22 @@ const CreateClass: React.FC = () => {
                 <SectionTitle>Sobre a aula</SectionTitle>
                 <SectionDivider />
 
-                <InputName>Matéria</InputName>
-                <Input
-                  name="subject"
-                  placeholder="Ex: Matemática"
-                  onChangeText={(text) => setSubject(text)}
-                  icon="book-open"
+                <Select
+                  label="Matéria"
+                  items={[
+                    { value: 'Artes', label: 'Artes' },
+                    { value: 'Biologia', label: 'Biologia' },
+                    { value: 'Matemática', label: 'Matemática' },
+                    { value: 'Inglês', label: 'Inglês' },
+                    { value: 'Geografia', label: 'Geografia' },
+                    { value: 'História', label: 'História' },
+                    { value: 'Português', label: 'Português' },
+                    { value: 'Química', label: 'Química' },
+                    { value: 'Física', label: 'Física' },
+                  ]}
+                  placeholder="Selecione uma matéria"
+                  defaultValue={subject}
+                  onChangeItem={(item) => setSubject(item.value)}
                 />
 
                 <InputName>Custo da sua hora por aula</InputName>

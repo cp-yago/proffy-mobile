@@ -6,7 +6,6 @@ import ClassItem, { ClassItemProps } from '../../components/ClassItem';
 import Icon from 'react-native-vector-icons/Feather';
 
 import {
-  styles,
   Container,
   ClassListContainer,
   SearchFormContainer,
@@ -85,8 +84,10 @@ const ClassList: React.FC = () => {
         }}>
         <SearchFormContainer>
           <SearchFormLabels>
-            <SearchFormTitle>Proffys Disponíveis</SearchFormTitle>
-            <ProffysCounter>32 Proffys</ProffysCounter>
+            <SearchFormTitle>Aulas Disponíveis</SearchFormTitle>
+            <ProffysCounter>
+              {filteredClassesData.totalClassesInPage} aula(s)
+            </ProffysCounter>
           </SearchFormLabels>
 
           <SearchButtom onPress={handleFilterToggle}>
@@ -111,61 +112,56 @@ const ClassList: React.FC = () => {
                 { value: 'Química', label: 'Química' },
                 { value: 'Física', label: 'Física' },
               ]}
-              placeholder="Selecione uma matéria"
-              style={{ width: 320, height: 100 }}
+              placeholder="Selecione"
               defaultValue={subject}
               onChangeItem={(item) => setSubject(item.value)}
             />
 
-            <InputGroup>
-              <Select
-                label="Dia da semana"
-                items={[
-                  { label: 'Segunda', value: 1 },
-                  { label: 'Terça', value: 2 },
-                  { label: 'Quarta', value: 3 },
-                  { label: 'Quinta', value: 4 },
-                  { label: 'Sexta', value: 5 },
-                ]}
-                placeholder="Selecione"
-                defaultValue={week_day}
-                onChangeItem={(item) => setWeek_day(item.value)}
-                style={styles.inputBlock}
-              />
+            <Select
+              label="Dia da semana"
+              items={[
+                { label: 'Segunda', value: 1 },
+                { label: 'Terça', value: 2 },
+                { label: 'Quarta', value: 3 },
+                { label: 'Quinta', value: 4 },
+                { label: 'Sexta', value: 5 },
+              ]}
+              placeholder="Selecione"
+              defaultValue={week_day}
+              onChangeItem={(item) => setWeek_day(item.value)}
+            />
 
-              <Select
-                label="Horário"
-                items={[
-                  { label: '00h', value: '00:00' },
-                  { label: '01h', value: '01:00' },
-                  { label: '02h', value: '02:00' },
-                  { label: '03h', value: '03:00' },
-                  { label: '05h', value: '05:00' },
-                  { label: '06h', value: '06:00' },
-                  { label: '07h', value: '07:00' },
-                  { label: '08h', value: '08:00' },
-                  { label: '09h', value: '09:00' },
-                  { label: '10h', value: '10:00' },
-                  { label: '11h', value: '11:00' },
-                  { label: '12h', value: '12:00' },
-                  { label: '13h', value: '13:00' },
-                  { label: '14h', value: '14:00' },
-                  { label: '15h', value: '15:00' },
-                  { label: '16h', value: '16:00' },
-                  { label: '17h', value: '17:00' },
-                  { label: '18h', value: '18:00' },
-                  { label: '19h', value: '19:00' },
-                  { label: '20h', value: '20:00' },
-                  { label: '21h', value: '21:00' },
-                  { label: '22h', value: '22:00' },
-                  { label: '23h', value: '23:00' },
-                ]}
-                placeholder="Selecione"
-                defaultValue={time}
-                onChangeItem={(item) => setTime(item.value)}
-                style={styles.inputBlock}
-              />
-            </InputGroup>
+            <Select
+              label="Horário"
+              items={[
+                { label: '00h', value: '00:00' },
+                { label: '01h', value: '01:00' },
+                { label: '02h', value: '02:00' },
+                { label: '03h', value: '03:00' },
+                { label: '05h', value: '05:00' },
+                { label: '06h', value: '06:00' },
+                { label: '07h', value: '07:00' },
+                { label: '08h', value: '08:00' },
+                { label: '09h', value: '09:00' },
+                { label: '10h', value: '10:00' },
+                { label: '11h', value: '11:00' },
+                { label: '12h', value: '12:00' },
+                { label: '13h', value: '13:00' },
+                { label: '14h', value: '14:00' },
+                { label: '15h', value: '15:00' },
+                { label: '16h', value: '16:00' },
+                { label: '17h', value: '17:00' },
+                { label: '18h', value: '18:00' },
+                { label: '19h', value: '19:00' },
+                { label: '20h', value: '20:00' },
+                { label: '21h', value: '21:00' },
+                { label: '22h', value: '22:00' },
+                { label: '23h', value: '23:00' },
+              ]}
+              placeholder="Selecione"
+              defaultValue={time}
+              onChangeItem={(item) => setTime(item.value)}
+            />
 
             <SubmitButtom onPress={handleFiltersSubmit}>
               <SubmitButtomText>Aplicar filtro</SubmitButtomText>

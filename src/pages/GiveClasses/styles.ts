@@ -5,6 +5,7 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 export const Container = styled.View`
   flex: 1;
   background: #e6e6f0;
+  padding-bottom: 32px;
 `;
 
 export const ImageBackground = styled.ImageBackground`

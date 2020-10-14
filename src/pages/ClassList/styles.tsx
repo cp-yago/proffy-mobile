@@ -2,7 +2,9 @@ import styled from 'styled-components/native';
 
 import { StyleSheet } from 'react-native';
 
-export const Container = styled.View``;
+export const Container = styled.View`
+  padding-bottom: 64px;
+`;
 
 export const ClassListContainer = styled.ScrollView`
   /* margin-top: -40px; */
@@ -57,39 +59,23 @@ export const SearchLabel = styled.Text`
 
 export const SearchForms = styled.View`
   width: 100%;
-  height: 300px;
+  padding: 0 10%;
+  height: 400px;
   background: #8257e5;
-  justify-content: center;
-  align-items: center;
-
-  /* border: 1px solid red; */
-  margin-top: -30px;
+  display: flex;
+  flex-direction: column;
+  margin-top: -15px;
 `;
-
-export const InputGroup = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  width: 340px;
-  padding-top: 10px;
-`;
-
-export const styles = StyleSheet.create({
-  inputBlock: {
-    width: 150,
-    paddingHorizontal: 10,
-    marginHorizontal: 10,
-  },
-});
 
 export const SubmitButtom = styled.TouchableOpacity`
   background-color: #04d361;
   height: 56px;
-  width: 80%;
+  width: 100%;
   border-radius: 8px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 20px;
+  margin-top: 10px;
 `;
 
 export const SubmitButtomText = styled.Text`

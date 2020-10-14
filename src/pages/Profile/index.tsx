@@ -47,7 +47,11 @@ const Profile: React.FC = () => {
 
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
-  const [avatar, setAvatar] = useState(user.avatar_url);
+  const [avatar, setAvatar] = useState(() =>
+    user.avatar_url
+      ? user.avatar_url
+      : 'https://m2bob-forum.net/wcf/images/avatars/3e/2720-3e546be0b0701e0cb670fa2f4fcb053d4f7e1ba5.jpg',
+  );
 
   const [whatsapp, setWhatsapp] = useState(() =>
     user.whatsapp ? user.whatsapp : '',

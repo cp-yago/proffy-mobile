@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { Alert, Text } from 'react-native';
+import { Alert, Linking, Text } from 'react-native';
 
 import heartOutlineIcon from '../../assets/images/icons/heart-outline.png';
 import unfavoriteIcon from '../../assets/images/icons/unfavorite.png';
@@ -67,15 +67,11 @@ const ClassItem: React.FC<ClassItemProps> = ({
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const [teacherAvatar] = useState<string | undefined>(() => {
-    if (user) {
-      if (user.avatar_url) {
-        return user.avatar_url;
-      }
-    } else {
-      return 'https://m2bob-forum.net/wcf/images/avatars/3e/2720-3e546be0b0701e0cb670fa2f4fcb053d4f7e1ba5.jpg';
-    }
-  });
+  const [avatar] = useState(() =>
+    user.avatar_url
+      ? user.avatar_url
+      : 'https://m2bob-forum.net/wcf/images/avatars/3e/2720-3e546be0b0701e0cb670fa2f4fcb053d4f7e1ba5.jpg',
+  );
 
   useEffect(() => {
     const checkIfIsFavorite = async () => {
@@ -148,12 +144,19 @@ const ClassItem: React.FC<ClassItemProps> = ({
     }
   }, [isFavorite, id]);
 
+  const handleOpenWhatsApp = useCallback(async () => {
+    await api.post('/connections', {
+      teacher_id: user.id,
+    });
+    Linking.openURL(`whatsapp://send?phone=+55${user.whatsapp}`);
+  }, [user.whatsapp, user.id]);
+
   return (
     <Container>
       <ProfileContainer>
         <ProfileAvatar
           source={{
-            uri: teacherAvatar,
+            uri: avatar,
           }}
         />
 
@@ -202,7 +205,7 @@ const ClassItem: React.FC<ClassItemProps> = ({
           )}
         </FavoriteButton>
 
-        <ContactButton>
+        <ContactButton onPress={handleOpenWhatsApp}>
           <ContactButtonIcon source={whatsAppIcon} />
           <ContactButtonText>Entrar em contato</ContactButtonText>
         </ContactButton>
